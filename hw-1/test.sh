@@ -1,9 +1,9 @@
 echo "===Untimed Merge Sort==="
-python3 ./merge_sort_untimed.py
+python3 ./merge.py
 echo "===Untimed Insertion Sort==="
-python3 ./insertion_sort_untimed.py
+python3 ./insert.py
 
 echo "===Timed Merge Sort==="
-python3 ./merge_sort_timed.py
+python3 ./mergeTime.py
 echo "===Timed Insertion Sort==="
-python3 ./insertion_sort_timed.py
+python3 ./insertTime.py
