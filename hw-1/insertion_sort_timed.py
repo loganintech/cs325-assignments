@@ -18,7 +18,7 @@ def insertion_sort(lst):
         lst[pos] = stored
 
 
-sizes = [100, 500, 1000, 2500, 5000, 10000, 15000, 20000, 25000, 50000]
+sizes = [100, 250, 500, 1000, 2500, 5000, 10000, 12500, 15000, 20000]
 
 
 def current_milli(): return int(round(time.time() * 1000))
