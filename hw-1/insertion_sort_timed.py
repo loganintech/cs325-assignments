@@ -4,7 +4,7 @@ import random
 
 
 def generate_arr(size):
-    return [random.randint(0, 10_000) for _ in range(size)]
+    return [random.randint(0, 10000) for _ in range(size)]
 
 
 def insertion_sort(lst):
@@ -18,7 +18,7 @@ def insertion_sort(lst):
         lst[pos] = stored
 
 
-sizes = [100, 500, 1_000, 2_500, 5_000, 10_000, 15_000, 20_000, 25_000, 50_000]
+sizes = [100, 500, 1000, 2500, 5000, 10000, 15000, 20000, 25000, 50000]
 
 
 def current_milli(): return int(round(time.time() * 1000))

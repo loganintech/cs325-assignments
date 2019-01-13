@@ -4,7 +4,7 @@ import random
 
 
 def generate_arr(size):
-    return [random.randint(0, 10_000) for _ in range(size)]
+    return [random.randint(0, 10000) for _ in range(size)]
 
 
 def merge_sort(lst):
@@ -46,8 +46,8 @@ def merge(master_list, left, right):
         combined_counter += 1
 
 
-sizes = [5_000, 10_000, 20_000, 25_000, 50_000,
-         100_000, 200_000, 500_000, 1_000_000, 2_000_000]
+sizes = [5000, 10000, 20000, 25000, 50000,
+         100000, 200000, 500000, 1000000, 2000000]
 
 
 def current_milli(): return int(round(time.time() * 1000))
