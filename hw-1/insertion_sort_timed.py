@@ -4,7 +4,6 @@ import random
 
 
 def generate_arr(size):
-    print("Generating: {}".format(size))
     return [random.randint(0, 10_000) for _ in range(size)]
 
 
