@@ -1,10 +1,10 @@
 echo "===Untimed Merge Sort==="
-python3 ./merge.py
-echo "==Output of Merge.py=="
+python3 ./mergesort.py
+echo "==Output of Mergesort.py=="
 cat ./merge.txt
 echo "===Untimed Insertion Sort==="
-python3 ./insert.py
-echo "==Output of Insert.py=="
+python3 ./insertsort.py
+echo "==Output of Insertsort.py=="
 cat ./insertion.txt
 
 echo "===Timed Merge Sort==="
