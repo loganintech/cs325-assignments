@@ -7,19 +7,22 @@ use std::{
     time::Instant,
 };
 
-use rand::{
-    thread_rng, Rng
-};
+use rand::{thread_rng, Rng};
 
+static LARGE_SIZES: [u32; 10] = [
+    5000, 10000, 20000, 25000, 50000, 100000, 200000, 500000, 1000000, 2000000,
+];
 static SIZES: [u32; 10] = [100, 250, 500, 1000, 2500, 5000, 10000, 12500, 15000, 20000];
 
 fn main() {
-
-    let mut arrays: Vec<Vec<u32>> = SIZES.iter().map(|size| generate_data(*size)).collect();
+    let mut arrays: Vec<Vec<u32>> = LARGE_SIZES
+        .iter()
+        .map(|size| generate_data(*size))
+        .collect();
 
     for arr in arrays.iter_mut() {
         let before = Instant::now();
-        insertion_sort(arr);
+        merge_sort(arr);
         let after = Instant::now();
         let diff = after.duration_since(before);
         println!("[{} Elements] {}ms", arr.len(), diff.as_millis());
@@ -39,6 +42,35 @@ fn insertion_sort(list: &mut Vec<u32>) {
     }
 }
 
+fn merge_sort(list: &mut [u32]) {
+    if list.len() > 1 {
+        let middle = list.len() / 2;
+
+        let (left, right) = list.split_at_mut(middle);
+        merge_sort(left);
+        merge_sort(right);
+        merge(left, right);
+    }
+}
+
+fn merge(left: &mut [u32], right: &mut [u32]) -> Vec<u32> {
+    let mut leftc = 0;
+    let mut rightc = 0;
+
+    let mut dest = Vec::with_capacity(left.len() + right.len());
+
+    while leftc < left.len() && rightc < right.len() {
+        if left[leftc] < right[rightc] {
+            dest.push(left[leftc]);
+            leftc += 1;
+        } else {
+            dest.push(right[rightc]);
+            rightc += 1;
+        }
+    }
+
+    dest
+}
 
 fn load_file() -> Result<Vec<Vec<u32>>, Error> {
     let reader = BufReader::new(File::open("data.txt")?);
