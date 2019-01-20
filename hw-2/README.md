@@ -1,7 +1,5 @@
 # Running
 
-You can run all of these programs by running `./test.sh`
+You can run these programs with `python3 merge4.py` or `python3 merge4Time.py`
 
-Alternatively, you could run each with `python3 script_name.py`
-
-Ensure `data.txt` is in the same folder as the python scripts. I've included a sample `data.txt` for you. The script expects a space-sepparated list of numbers that ends in a linesepparator.
+Merge 4 accepts data.txt, but merge4Time generates data for itself to test with

@@ -63,9 +63,8 @@ def print_lists(lists):
 
 if __name__ == "__main__":
     print("===Testing 4-Way Merge Sort===")
-    print("Generating Test Data")
+    print("Generating Test Data...")
     lists = [generate_arr(size) for size in sizes]
-    print("Generation Complete! Testing...")
     for idx, lst in enumerate(lists):
         start = current_milli()
         merge_sort(lst)
