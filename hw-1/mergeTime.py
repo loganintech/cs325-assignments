@@ -51,6 +51,10 @@ sizes = [5000, 10000, 20000, 25000, 50000,
 
 
 def current_milli(): return int(round(time.time() * 1000))
+def verify(lst):
+    for i in range(len(lst) - 1):
+        if lst[i] > lst[i+1]:
+            print("AHHHHH")
 
 
 if __name__ == "__main__":
@@ -59,5 +63,6 @@ if __name__ == "__main__":
         start = current_milli()
         merge_sort(lst)
         end = current_milli()
+        verify(lst)
 
         print("[{} Elements] {}ms".format(sizes[idx], end - start))

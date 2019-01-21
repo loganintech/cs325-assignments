@@ -7,6 +7,7 @@ def merge_sort(lst):
 
     if len(lst) > 1:  # IF we have more processing to do
         middle = len(lst) // 2  # Floor division so we don't get a .5 index
+
         far_left = merge_sort(lst[:middle//2])
         left = merge_sort(lst[middle//2:middle])
         right = merge_sort(lst[middle:middle+middle//2])
@@ -44,8 +45,6 @@ def merge(left, right):
     return new_list
 
 
-sizes = [5000, 10000, 20000, 25000, 50000,
-         100000, 200000, 500000, 1000000, 2000000]
 
 
 def current_milli(): return int(round(time.time() * 1000))
@@ -65,13 +64,26 @@ def print_lists(lists):
         print("{}".format(' '.join(str(s) for s in lst)))
 
 
+def veried(lst):
+    for i in range(len(lst) - 1):
+        if lst[i] > lst[i+1]:
+            return True
+
+    return False
+
+# sizes = [5]
+sizes = [5000, 10000, 20000, 25000, 50000,
+         100000, 200000, 500000, 1000000, 2000000]
 if __name__ == "__main__":
     print("===Testing 4-Way Merge Sort===")
     print("Generating Test Data...")
     lists = [generate_arr(size) for size in sizes]
     for idx, lst in enumerate(lists):
         start = current_milli()
-        merge_sort(lst)
+        lst = merge_sort(lst)
         end = current_milli()
-
         print("[{} Elements] {}ms".format(sizes[idx], end - start))
+
+        # if veried(lst):
+        #     print("Failed to sort")
+
