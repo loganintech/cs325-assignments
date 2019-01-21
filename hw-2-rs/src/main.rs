@@ -15,14 +15,25 @@ static LARGE_SIZES: [u32; 10] = [
 static SIZES: [u32; 10] = [100, 250, 500, 1000, 2500, 5000, 10000, 12500, 15000, 20000];
 
 fn main() {
-    let arrays: Vec<Vec<u32>> = LARGE_SIZES
+    let mut arrays: Vec<Vec<u32>> = LARGE_SIZES
         .iter()
         .map(|size| generate_data(*size))
         .collect();
 
     arrays.iter().for_each(|arr| {
         let before = Instant::now();
-        let arr = four_way_merge_sort(arr.to_vec());
+        let arr = four_way_merge_sort(arr);
+        let after = Instant::now();
+        let diff = after.duration_since(before);
+        verify(&arr);
+        println!("[{} Elements] {}ms", arr.len(), diff.as_millis());
+    });
+
+    println!("===Sorting with build-in sort===");
+
+    arrays.iter_mut().for_each(|arr| {
+        let before = Instant::now();
+        arr.sort();
         let after = Instant::now();
         let diff = after.duration_since(before);
         verify(&arr);
@@ -49,25 +60,25 @@ fn insertion_sort(list: &mut Vec<u32>) {
     }
 }
 
-fn four_way_merge_sort(mut list: Vec<u32>) -> Vec<u32> {
+fn four_way_merge_sort(list: &[u32]) -> Vec<u32> {
     if list.len() > 1 {
         let middle = list.len() / 2;
 
-        let (left, right) = list.split_at_mut(middle);
-        let (far_left, left) = left.split_at_mut(left.len() / 2);
-        let (right, far_right) = right.split_at_mut(right.len() / 2);
+        let (left, right) = list.split_at(middle);
+        let (far_left, left) = left.split_at(left.len() / 2);
+        let (right, far_right) = right.split_at(right.len() / 2);
 
-        let far_left = four_way_merge_sort(far_left.to_vec());
-        let left = four_way_merge_sort(left.to_vec());
-        let right = four_way_merge_sort(right.to_vec());
-        let far_right = four_way_merge_sort(far_right.to_vec());
+        let far_left = four_way_merge_sort(far_left);
+        let left = four_way_merge_sort(left);
+        let right = four_way_merge_sort(right);
+        let far_right = four_way_merge_sort(far_right);
 
         let left = merge(&left, &far_left);
         let right = merge(&right, &far_right);
-        list = merge(&left, &right);
+        return merge(&left, &right);
     }
 
-    list
+    list.to_vec()
 }
 
 fn merge(left: &[u32], right: &[u32]) -> Vec<u32> {
