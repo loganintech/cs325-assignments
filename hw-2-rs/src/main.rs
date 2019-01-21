@@ -15,17 +15,24 @@ static LARGE_SIZES: [u32; 10] = [
 static SIZES: [u32; 10] = [100, 250, 500, 1000, 2500, 5000, 10000, 12500, 15000, 20000];
 
 fn main() {
-    let mut arrays: Vec<Vec<u32>> = LARGE_SIZES
+    let arrays: Vec<Vec<u32>> = LARGE_SIZES
         .iter()
         .map(|size| generate_data(*size))
         .collect();
 
-    for arr in arrays.iter_mut() {
+    arrays.iter().for_each(|arr| {
         let before = Instant::now();
-        merge_sort(arr);
+        let arr = four_way_merge_sort(arr.to_vec());
         let after = Instant::now();
         let diff = after.duration_since(before);
+        verify(&arr);
         println!("[{} Elements] {}ms", arr.len(), diff.as_millis());
+    });
+}
+
+fn verify(list: &[u32]) {
+    for i in 0..(list.len() - 1) {
+        assert!(list[i] <= list[i + 1]);
     }
 }
 
@@ -42,7 +49,7 @@ fn insertion_sort(list: &mut Vec<u32>) {
     }
 }
 
-fn merge_sort(list: &mut [u32]) {
+fn four_way_merge_sort(mut list: Vec<u32>) -> Vec<u32> {
     if list.len() > 1 {
         let middle = list.len() / 2;
 
@@ -50,17 +57,20 @@ fn merge_sort(list: &mut [u32]) {
         let (far_left, left) = left.split_at_mut(left.len() / 2);
         let (right, far_right) = right.split_at_mut(right.len() / 2);
 
-        merge_sort(far_left);
-        merge_sort(left);
-        merge(left, far_left);
+        let far_left = four_way_merge_sort(far_left.to_vec());
+        let left = four_way_merge_sort(left.to_vec());
+        let right = four_way_merge_sort(right.to_vec());
+        let far_right = four_way_merge_sort(far_right.to_vec());
 
-        merge_sort(right);
-        merge_sort(far_right);
-        merge(right, far_right);
+        let left = merge(&left, &far_left);
+        let right = merge(&right, &far_right);
+        list = merge(&left, &right);
     }
+
+    list
 }
 
-fn merge(left: &mut [u32], right: &mut [u32]) -> Vec<u32> {
+fn merge(left: &[u32], right: &[u32]) -> Vec<u32> {
     let mut leftc = 0;
     let mut rightc = 0;
 
@@ -74,6 +84,16 @@ fn merge(left: &mut [u32], right: &mut [u32]) -> Vec<u32> {
             dest.push(right[rightc]);
             rightc += 1;
         }
+    }
+
+    while leftc < left.len() {
+        dest.push(left[leftc]);
+        leftc+=1;
+    }
+
+    while rightc < right.len() {
+        dest.push(right[rightc]);
+        rightc+=1;
     }
 
     dest
