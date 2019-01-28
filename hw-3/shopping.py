@@ -97,16 +97,20 @@ def get_path(table, items):
     return " ".join([str(x) for x in path][::-1])
 
 
-cases = get_test_cases()
-for idx, case in enumerate(cases):
-    lst = get_max_val_bottom_up(case)
-    print("Test Case {}".format(idx + 1))
-    price = 0
-    for person in lst:
-        price += person[0]
-    print("Total Price {}".format(price))
-    print("Member Items")
-    for fam_idx, person in enumerate(lst):
-        print("{}: {}".format(fam_idx + 1, get_path(person[1], case['items'])))
 
-    print()
+
+cases = get_test_cases()
+with open("results.txt", "w") as f:
+    for idx, case in enumerate(cases):
+        lst = get_max_val_bottom_up(case)
+        f.write("Test Case {}\n".format(idx + 1))
+        price = 0
+        for person in lst:
+            price += person[0]
+        f.write("Total Price {}\n".format(price))
+        f.write("Member Items\n")
+        for fam_idx, person in enumerate(lst):
+            f.write("{}: {}\n".format(fam_idx + 1, get_path(person[1], case['items'])))
+
+        f.write("\n")
+
