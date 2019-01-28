@@ -1,5 +1,6 @@
-costs = [0, 150, 200, 295, 375, 480, 620]
+# costs = [0, 150, 200, 295, 375, 480, 620]
 # costs = [1, 3, 10, 12, 8, 13, 6]
+costs = [2, 2, 3, 4]
 
 def lowest_cost(costs):
 
@@ -22,7 +23,7 @@ def lecture_lowest(costs):
         computed_costs.append(1000000000)
         for i in range(0, j):
             complexity += 1
-            computed_costs[j] = min(computed_costs[i] + (200 - (costs[j] - costs[i]))**2, computed_costs[j])
+            computed_costs[j] = min(computed_costs[i] + (costs[j] - costs[i]), computed_costs[j])
 
 
     return computed_costs, complexity
