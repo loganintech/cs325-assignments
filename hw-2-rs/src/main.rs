@@ -20,6 +20,8 @@ fn main() {
         .map(|size| generate_data(*size))
         .collect();
 
+    println!("===Sorting with four-way merge sort===");
+
     arrays.iter().for_each(|arr| {
         let before = Instant::now();
         let arr = four_way_merge_sort(arr);
