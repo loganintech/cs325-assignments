@@ -78,6 +78,7 @@ struct ActivitySet(Vec<Vec<Activity>>);
 
 
 //File parsing. Feel free to read, but totally unrelated to the algorithm
+//Implementing this trait is what allows us to use the `.into()` function for conversion
 impl From<File> for ActivitySet {
     fn from(file: File) -> Self {
         let mut activities: Vec<Vec<Activity>> = vec![];
