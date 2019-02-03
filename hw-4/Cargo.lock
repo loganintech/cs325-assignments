@@ -1,0 +1,4 @@
+[[package]]
+name = "last-to-start-greedy-scheduling-algorithm"
+version = "0.1.0"
+

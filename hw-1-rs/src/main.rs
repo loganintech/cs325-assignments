@@ -1,4 +1,4 @@
-#![feature(duration_as_u128)]
+#![allow(dead_code)]
 
 use std::{
     fs::File,
