@@ -29,13 +29,6 @@ def lecture_lowest(costs):
     return computed_costs, complexity
 
 
-def lecture_path(computed_costs, costs):
-    total_cost = computed_costs[-1:]
-
-
-
-
 
 comp, complexity = lecture_lowest(costs)
-lecture_path(comp, costs)
 print("Lowest cost {}\nComplexity: {}".format(comp, complexity))
