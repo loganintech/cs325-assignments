@@ -58,8 +58,10 @@ def bottom_up(capacity, items):
             if row == 0 or column == 0:
                 value_table[row].append(0)
             elif items[row - 1]['weight'] <= column:
-                value_table[row].append(max(items[row - 1]['price'] + value_table[row - 1]
-                                            [column - items[row - 1]['weight']], value_table[row - 1][column]))
+                value_table[row] \
+                    .append(max(items[row - 1]['price'] \
+                                + value_table[row - 1][column - items[row - 1]['weight']],
+                                 value_table[row - 1][column]))
             else:
                 value_table[row].append(value_table[row - 1][column])
 
