@@ -5,4 +5,5 @@ authors = ["Logan Saso <sasol@oregonstate.edu>"]
 edition = "2018"
 
 [dependencies]
+# Use indexmap so that the order is consistent
 indexmap = "1.0.2"
