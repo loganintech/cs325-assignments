@@ -17,7 +17,26 @@ def load_file(name):
         return graph, lines[1]
 
 
-TEAMS = ["Babyfaces", "Heels"]
+# def recursive_without_queue(graph, verticies):
+#     global VALID_BFS
+#     # For every location we want to check
+#     for key in verticies:
+#         # For every one of the neighbors
+#         for neighbor in graph[key]["neighbors"]:
+#             # Check to see if the neighbor has an assigned team. If it doesn't, assign it to the opposite of this key
+#             if graph[neighbor]["team"] == "":
+#                 graph[neighbor]["team"] = TEAMS[TEAMS.index(
+#                     graph[key]["team"]) ^ 1]
+#             # If it does, check to make sure it's compatible with this key. If it isn't, exit with false
+#             elif graph[neighbor]["team"] == graph[key]["team"]:
+#                 VALID_BFS = False
+
+#     for key in verticies:
+#         for neighbor in graph[key]["neighbors"]:
+#             if not all_assigned(graph, graph[neighbor]["neighbors"]):
+#                 return recursive_without_queue(graph, graph[key]["neighbors"])
+
+#     return graph, True
 
 
 def pick_unassigned(graph):
@@ -33,32 +52,11 @@ def all_assigned(graph, neighbors):
     return True
 
 
+TEAMS = ["Babyfaces", "Heels"]
 VALID_BFS = True
 
 
-def attempt_one(graph, verticies):
-    global VALID_BFS
-    # For every location we want to check
-    for key in verticies:
-        # For every one of the neighbors
-        for neighbor in graph[key]["neighbors"]:
-            # Check to see if the neighbor has an assigned team. If it doesn't, assign it to the opposite of this key
-            if graph[neighbor]["team"] == "":
-                graph[neighbor]["team"] = TEAMS[TEAMS.index(
-                    graph[key]["team"]) ^ 1]
-            # If it does, check to make sure it's compatible with this key. If it isn't, exit with false
-            elif graph[neighbor]["team"] == graph[key]["team"]:
-                VALID_BFS = False
-
-    for key in verticies:
-        for neighbor in graph[key]["neighbors"]:
-            if not all_assigned(graph, graph[neighbor]["neighbors"]):
-                return attempt_one(graph, graph[key]["neighbors"])
-
-    return graph, True
-
-
-def breadth_first(graph, first_node):
+def efficient_with_queue(graph, first_node):
     global VALID_BFS
     queue = []
     queue.append(first_node)
@@ -84,11 +82,13 @@ if __name__ == "__main__":
         exit(1)
 
     graph, first_key = load_file(args[1])
-    result_graph = breadth_first(graph, first_key)
+    result_graph = efficient_with_queue(graph, first_key)
 
+    # Support the possibility of disjoint subgraphs with only one connection to eachother
+    # IE, A-B-D-C and G-E, we have to start on A and then start on G to check everything
     while not all_assigned(result_graph, result_graph.keys()):
         starting_key = pick_unassigned(result_graph)
-        result_graph = breadth_first(result_graph, starting_key)
+        result_graph = efficient_with_queue(result_graph, starting_key)
 
     # pprint.pprint(result_graph)
 
@@ -100,8 +100,8 @@ if __name__ == "__main__":
             babyfaces.append(key)
         else:
             heels.append(key)
-    if VALID_BFS:
 
+    if VALID_BFS:
         print("Yes it's possible!")
         print("Babyfaces: " + " ".join(babyfaces))
         print("Heels: " + " ".join(heels))
