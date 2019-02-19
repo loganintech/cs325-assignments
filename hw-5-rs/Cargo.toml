@@ -1,0 +1,8 @@
+[package]
+name = "hw-5-rs"
+version = "0.1.0"
+authors = ["Logan Saso <sasol@oregonstate.edu>"]
+edition = "2018"
+
+[dependencies]
+indexmap = "1.0.2"
