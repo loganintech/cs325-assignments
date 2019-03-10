@@ -66,6 +66,7 @@ def best_fit(weights, capacity):
 
 if __name__ == "__main__":
     data = load_from_file(sys.argv[1])
+    pack_results = {}
     for i, case in enumerate(data):
         items = case['items']
         capacity = case['capacity']
@@ -73,5 +74,21 @@ if __name__ == "__main__":
         ff = first_fit(items, capacity)
         bf = best_fit(items, capacity)
         ffd = first_fit_decreasing(items, capacity)
-        print("[Case {}] First Fit: {}, First Fit Decreasing: {}, Best Fit: {}".format(
-            i, ff, ffd, bf))
+        results = {
+            "first_fit": ff,
+            "first_fit_decreasing": ffd,
+            "best_fit": bf,
+        }
+        best_result = min(results, key=results.get)
+        if ff == ffd and ffd == bf:
+            best_result = "all_equivalent"
+        print("[Case {}] First Fit: {}, First Fit Decreasing: {}, Best Fit: {}   ---   OPTIMAL SOLUTION: {}".format(
+            i, ff, ffd, bf, best_result))
+
+        if best_result in pack_results:
+            pack_results[best_result] += 1
+        else:
+            pack_results[best_result] = 1
+
+    import pprint
+    pprint.pprint(pack_results)
