@@ -73,5 +73,5 @@ if __name__ == "__main__":
         ff = first_fit(items, capacity)
         bf = best_fit(items, capacity)
         ffd = first_fit_decreasing(items, capacity)
-        print(
-            f"[Case {i}] First Fit: {ff}, First Fit Decreasing: {ffd}, Best Fit: {bf}")
+        print("[Case {}] First Fit: {}, First Fit Decreasing: {}, Best Fit: {}".format(
+            i, ff, ffd, bf))
