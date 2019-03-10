@@ -54,10 +54,12 @@ def all_assigned(graph, neighbors):
 
 TEAMS = ["Babyfaces", "Heels"]
 VALID_BFS = True
+step_counter = 0
 
 
 def efficient_with_queue(graph, first_node):
     global VALID_BFS
+    global step_counter
     queue = []
     queue.append(first_node)
     graph[first_node]["team"] = TEAMS[0]
@@ -65,6 +67,7 @@ def efficient_with_queue(graph, first_node):
     while len(queue) > 0:
         node = queue.pop(0)
         for neighbor in graph[node]["neighbors"]:
+            step_counter += 1
             if graph[neighbor]["team"] == "":
                 queue.append(neighbor)
                 graph[neighbor]["team"] = TEAMS[TEAMS.index(
@@ -107,3 +110,5 @@ if __name__ == "__main__":
         print("Heels: " + " ".join(heels))
     else:
         print("No it's not possible.")
+
+    print("Completed in {} steps".format(step_counter))
