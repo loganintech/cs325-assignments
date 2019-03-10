@@ -90,5 +90,6 @@ if __name__ == "__main__":
         else:
             pack_results[best_result] = 1
 
-    import pprint
-    pprint.pprint(pack_results)
+    for result in pack_results:
+        print("Packing method {} provided the best result {}% of the time".format(
+            result, (pack_results[result] / len(data)) * 100))
