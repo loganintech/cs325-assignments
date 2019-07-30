@@ -1,0 +1,1 @@
+A collection of assignments for my algorithms class. Each one should have a PDF of the assignment in the folder. 
